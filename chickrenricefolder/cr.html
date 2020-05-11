@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Chicken Rice</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/shop-homepage.css" rel="stylesheet">
+  <link href="../stores.css" rel="stylesheet">
+
+</head>
+
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color:#C0B283;">
+  <div class="container">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item ">
+          <a class="nav-link text-light" href="../Stores/stalls.html" style="color:white">
+            <h5>Back</h5>
+          </a>
+        </li>
+      </ul>
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <a class="nav-link text-light" href="#logo">
+        <h5>Logo</h5>
+      </a>
+      <a class="nav-link text-light" href="#start">
+        <h5>Menu</h5>
+      </a>
+    </div>
+  </div>
+  
+</nav>
+
+  <!-- Page Content -->
+  <div class="container" id="logo">
+    <br>
+    <br>
+    <div id="start" class="row">
+
+      <div class="col-sm-12">
+        <img src="gallery/logocr.jpg" style="max-width:700px">
+        <br>
+        <br>
+        <h1 id="stallname">Chicken Rice</h1>
+        <br>
+        <h2> Menu </h2>
+      </div>
+
+  </div class="m-5">
+  <!-- /.row -->
+<button class="btn btn-warning btn-lg mb-3" onclick="displayInput()">Check Queue Time</button>
+    <div class="form-group" style="display:none;" id="qInput">
+      <label for="ppl" style="font-size: x-large;color:#373737;">How many people in queue?</label>
+      <select class="form-control" id="ppl">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>11</option>
+        <option>12</option>
+        <option>13</option>
+        <option>14</option>
+        <option>15</option>
+      </select>
+    <button class="btn btn-primary btn mt-3" onclick="calculateQT()">Calculate Queue Time</button>  
+    </div>
+    
+  </div>
+  <!-- /.col-lg-9 -->
+
+  <!-- Footer -->
+  <footer class="py-5" style="background-color:#C0B283;">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../database.js"></script>
+  <script src="../eachStallsFunction.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
