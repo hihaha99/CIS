@@ -17,7 +17,7 @@ function pickTime()
 function currentRedirect()
 {
   localStorage.setItem("customDate",false);
-  window.location.href = "../Stores/stalls.html";
+  window.location.href = "./Stores/stalls.html";
 }
 function customRedirect()
 {
@@ -29,6 +29,6 @@ function customRedirect()
   console.log(Ntime);
   localStorage.setItem("customDate",true);
   localStorage.setItem("customDT",Ntime);
-  window.location.assign("../Stores/stalls.html"); 
+  window.location.assign("./Stores/stalls.html"); 
 }
 
