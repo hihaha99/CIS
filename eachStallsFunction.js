@@ -51,13 +51,15 @@ function validateDateTime(index,day,dishname,time)
     +":"+allStalls_dict[index]["Food available"][dishname][2][2]);
     var cT=(allStalls_dict[index]["Food available"][dishname][3][0]+":"+allStalls_dict[index]["Food available"][dishname][3][1]
     +":"+allStalls_dict[index]["Food available"][dishname][3][2]);
-    var timeTrue=(oT<time.slice(11)&&time.slice(0,9)<cT);
+    var timeTrue=(oT<time.slice(0,9)&&time.slice(0,9)<cT);
     if(allStalls_dict[index]["Food available"][dishname][1].includes(day)&&timeTrue)
     {
         return true;
     }
     else
     {
+        console.log(timeTrue)
+        console.log(dishname,typeof(oT),typeof(time.slice(0,9)),typeof(cT),false)
         return false;
     }
 }
