@@ -1,2 +1,4 @@
 # Canteen-Information-System-Website
 Solving Y1S1 project https://github.com/hihaha99/CZ1003-Mini-Project by creating a website instead of software.(with HTML/CSS/JavaScript)
+
+Website:https://hihaha99.github.io/cis/index.html
