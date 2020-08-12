@@ -45,6 +45,5 @@ stall3_dict ={
     }
 allStalls_dict = [stall1_dict, stall2_dict,stall3_dict]
 
-with open('database.json', 'w') as outfile:
+with open('abcd.json', 'w') as outfile:
     json.dump(allStalls_dict, outfile)
-
