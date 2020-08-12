@@ -1,0 +1,21 @@
+{% extends "info/base.html" %}
+{% block content %}
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Stores</th>
+        <th scope="col">Opening Hours</th>
+        <th scope="col">Closing Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for store in stores %}
+      <tr>
+        <td>{{ store.name }}</td>
+        <td>{{ store.start_hour }}</td>
+        <td>{{ store.end_hour }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>  
+{% endblock %}
