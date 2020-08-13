@@ -18,3 +18,4 @@ class Dishes(models.Model):
 
     def __str__(self):
         return self.dname
+
