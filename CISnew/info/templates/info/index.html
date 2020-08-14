@@ -21,13 +21,13 @@
   <nav class="navbar navbar-dark bg-dark mt-5">
     <form class="form-inline">
       <a class="btn btn-outline-success mr-3 " type="button" href="{% url 'current-store' %}">Current Operating Stores Only</a>
-      <a class="btn btn-outline-success mr-3" type="button" href="{% url 'custom-store' %}">Check Operating Stores By Custom
-        Time</a>
+      <button class="btn btn-outline-success mr-3" type="button" onclick="document.getElementById('timepicker').style.visibility='visible'">Check Operating Stores By Custom
+        Time</button>
         <a class="btn btn-outline-success mr-3 " type="button" href="{% url 'add-store' %}">Add Store</a>
         <a class="btn btn-outline-success mr-3 " type="button" href="{% url 'add-dish' %}">Add Dish</a>  
     </form>
   </nav>
-  <form action="{% url 'custom-store' %}" method = "POST"> 
+  <form  style="visibility: hidden" id="timepicker" action="{% url 'custom-store' %}" method = "POST"> 
     {% csrf_token %} 
     {{ form }} 
     <input type = "submit" value = "Submit"> 

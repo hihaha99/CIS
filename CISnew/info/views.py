@@ -56,15 +56,19 @@ def current_store(request):
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
     stores=Stores.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time)
-    context={'stores':stores}
+    context={'stores':stores,"form":CustomTime()}
     return render(request,'info/current.html',context)
 
 def custom_store(request):
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = CustomTime(request.POST)
-    time=form['time'].value()
-    current_time = time
-    stores=Stores.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time)
-    context={'stores':stores}
-    return render(request,'info/custom.html',context)
+    if form.is_valid():
+        time=form['time'].value()
+        current_time = time
+        stores=Stores.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time)
+        context={'stores':stores}
+        return render(request,'info/custom.html',context)
+    else:
+        messages.error(request, f'Please enter time in HH:MM:SS format',extra_tags="danger")
+        return redirect('info')
