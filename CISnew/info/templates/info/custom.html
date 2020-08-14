@@ -1,30 +1,13 @@
 {% extends "info/base.html" %}
+{% block custom %}<td><a href="{% url 'dish_custom' store.name %}" >{{ store.name }}</a></td>{% endblock %}
 {% block content %}
-<table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Operating Stores</th>
-        <th scope="col">Opening Hours</th>
-        <th scope="col">Closing Hours</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for store in stores %}
-      <tr>
-        <td>{{ store.name }}</td>
-        <td>{{ store.start_hour }}</td>
-        <td>{{ store.end_hour }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>  
   <nav class="navbar navbar-dark bg-dark mt-5">
-    <form class="form-inline">
-      <a class="btn btn-outline-success mr-3 " type="button" href="{% url 'current-store' %}">Current Operating Stores Only</a>
-      <button class="btn btn-outline-success mr-3 active" type="button" >Check Operating Stores By Custom
+    <form class="form-inline" style="width:100%">
+      <a class="btn btn-outline-success mr-3 btn-block " type="button" href="{% url 'current-store' %}">Current Operating Stores Only</a>
+      <button class="btn btn-outline-success mr-3 btn-block active" type="button" >Check Operating Stores By Custom
         Time</button>
-        <a class="btn btn-outline-success mr-3 " type="button" href="{% url 'add-store' %}">Add Store</a>
-        <a class="btn btn-outline-success mr-3 " type="button" href="{% url 'add-dish' %}">Add Dish</a>  
+        <a class="btn btn-outline-success mr-3 btn-block" type="button" href="{% url 'add-store' %}">Add Store</a>
+        <a class="btn btn-outline-success mr-3 btn-block " type="button" href="{% url 'add-dish' %}">Add Dish</a>  
     </form>
   </nav>
 {% endblock %}

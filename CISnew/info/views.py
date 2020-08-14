@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect 
+from django.shortcuts import render , redirect ,get_object_or_404, get_list_or_404 
 from datetime import datetime
 from django.views.generic.edit import CreateView
 # Create your views here.
@@ -66,9 +66,25 @@ def custom_store(request):
     if form.is_valid():
         time=form['time'].value()
         current_time = time
+        request.session['current_time'] = current_time
         stores=Stores.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time)
         context={'stores':stores}
         return render(request,'info/custom.html',context)
     else:
         messages.error(request, f'Please enter time in HH:MM:SS format',extra_tags="danger")
         return redirect('info')
+
+def render_items(request, store_name):
+    store = Stores.objects.get(name=store_name)
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    item = Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time,store=store)
+    ##item = get_list_or_404(Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time), store=store)
+    return render(request, 'info/dish.html', {'item': item ,'store':store})
+
+def render_items_custom(request, store_name):
+    store = Stores.objects.get(name=store_name)
+    current_time = request.session['current_time']
+    item = Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time,store=store)
+    ##item = get_list_or_404(Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time), store=store)
+    return render(request, 'info/dish.html', {'item': item ,'store':store})
