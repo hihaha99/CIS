@@ -3,9 +3,12 @@ from datetime import datetime
 from django.views.generic.edit import CreateView
 # Create your views here.
 from django.http import HttpResponse
-from .models import Stores, Dishes 
-from .forms import StoresForm, DishesForm ,CustomTime
+from .models import Stores, Dishes , Review
+from .forms import StoresForm, DishesForm ,CustomTime ,UserRegisterForm,ReviewForm
 from django.contrib import messages
+from django.views import generic
+from django.contrib.auth.decorators import login_required
+import pdb
 
 def info(request):
     stores = Stores.objects.all()
@@ -67,7 +70,7 @@ def custom_store(request):
         time=form['time'].value()
         current_time = time
         request.session['current_time'] = current_time
-        stores=Stores.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time)
+        stores= Stores.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time)
         context={'stores':stores}
         return render(request,'info/custom.html',context)
     else:
@@ -76,15 +79,58 @@ def custom_store(request):
 
 def render_items(request, store_name):
     store = Stores.objects.get(name=store_name)
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    item = Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time,store=store)
-    ##item = get_list_or_404(Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time), store=store)
-    return render(request, 'info/dish.html', {'item': item ,'store':store})
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        form.instance.store = store
+        form.instance.user = request.user
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Review added!')
+            return redirect ("info")
+    else:
+        form = ReviewForm()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M:%S")
+        item = Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time,store=store)
+        review = Review.objects.filter(store=store)
+        return render(request, 'info/dish.html', {'item': item ,'store':store,'review':review,'form':form})
+
 
 def render_items_custom(request, store_name):
     store = Stores.objects.get(name=store_name)
-    current_time = request.session['current_time']
-    item = Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time,store=store)
-    ##item = get_list_or_404(Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time), store=store)
-    return render(request, 'info/dish.html', {'item': item ,'store':store})
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        form.instance.store = store
+        form.instance.user = request.user
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Review added!')
+            return redirect ("info")
+    else:
+        form = ReviewForm()
+        current_time = request.session['current_time']
+        item = Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time,store=store)
+        review = Review.objects.filter(store=store)
+        ##item = get_list_or_404(Dishes.objects.filter(start_hour__lte=current_time, end_hour__gte=current_time), store=store)
+        return render(request, 'info/dish.html', {'item': item ,'store':store,'review':review,'form':form})
+
+# class IndexView(generic.ListView):
+#     template_name = 'info/dish2.html'
+#     context_object_name = 'item'
+
+#     def get_queryset(self):
+#         """Return the last five published questions."""
+#         return Dishes.objects.order_by('price')[:5]
+
+def register(request):
+    if request.method== "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            messages.success(request,f"Account created for {username}!")
+            return redirect("login")
+    else:
+        form = UserRegisterForm()
+    return render(request,'users/register.html',{'form':form})
+

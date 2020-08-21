@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load crispy_forms_tags %}
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -60,11 +61,29 @@
     <button class="btn btn-primary btn mt-3" onclick="calculateQT({{ store.wait_time }})">Calculate Queue Time</button>  
     </div>
     {% else %}
-      <h2>Sorry, no dishes available by this time</h2>  
-    {% endif %}    
-    <!-- {%if store %}
-        <h1>{{ store.wait_time }}</h1>
-    {% endif %}   -->
+      <h3 class="text-warning">Sorry, no dishes available by this time</h2>  
+    {% endif %} 
+    <legend class="border-bottom mb-4">Reviews</legend>
+    {% for single in review %}   
+      <div class="card">
+	      <div class="card-body">
+	        <div class="row">
+        	    <div class="col-md-2">
+        	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+        	        <p class="text-secondary text-center">{{ single.created_on }}</p>
+        	    </div>
+        	    <div class="col-md-10">
+        	        <p>
+        	            <a class="float-left" href="#"><strong>{{ single.user.username }}</strong></a>
+        	       </p>
+        	       <div class="clearfix"></div>
+        	        <p>{{ single.body }}</p>
+        	    </div>
+	        </div>
+	    </div>
+	</div>    
+  {% endfor %}
+
     <script>
         function displayInput()
         {
@@ -83,6 +102,16 @@
             alert("You'll have to wait about "+number*wait_time+" minutes")
         }
       </script>
+            <form method="POST">
+              {% csrf_token %}
+              <fieldset class="form-group">
+                  <legend class="border-bottom mb-4">Add Review</legend>
+                  {{ form|crispy }}
+              </fieldset>
+              <div class="form-group">
+                  <button class="btn btn-outline-info" type="submit">Add</button>
+              </div>
+          </form> 
       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

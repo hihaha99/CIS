@@ -1,6 +1,9 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Stores,Dishes
+from .models import Stores,Dishes,Review
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
 class StoresForm(ModelForm):
     class Meta:
         model = Stores
@@ -27,3 +30,18 @@ class DishesForm(ModelForm):
 
 class CustomTime(forms.Form): 
     time = forms.TimeField() 
+
+
+class UserRegisterForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ['username','password1','password2']
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['body']
+        labels = {
+        "body": "Write your review here:"
+    }
